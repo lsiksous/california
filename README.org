@@ -1,0 +1,47 @@
+#+TITLE:Les méthodes d'ensemble
+
+#+SUBTITLE: Acquérir et présenter les concepts essentiels associés aux modèles de Machine Learning que sont les méthodes d'ensemble.
+
+* Contexte du projet
+
+Les méthodes d'ensemble font aujourd'hui partie, avec l'apprentissage profond,
+des techniques parmi les plus performantes et efficaces pour effectuer du
+Machine Learning. Le but de ce brief est d'acquérir les notions de bases
+associées à ces méthodes. Pour cela, construire tout d'abord une présentation de
+type Powerpoint selon le plan suivant :
+
+
+- Quel est le principe général des méthodes d'ensemble ?
+- Que sont le "Bagging" et le "Pasting" ?
+- Qu'est ce que l'évaluation "Out-Of-Bag" ?
+- Qu'est ce que la méthode de "Random Patches" ?
+- Qu'est ce que la méthode de "Random Subspaces" ?
+- Décrire plus particulièrement ce qu'est une RandomForest et lesquels des concepts présentés précédemment sont utilisés par ce modèle.
+- Expliciter enfin l'ensemble des paramètres de la fonction "RandomForestRegressor" de la librairie Scikit-Learn.
+​
+
+Mise en pratique : entrainer au travers de trois Notebooks (cf section
+"Livrables attendus") une RandomForest sur le jeu de données "California Housing
+Dataset".
+
+Question subsidiaire : comparer les performances obtenues sur le jeu de test par
+la RandomForest à celles obtenues par un modèle de type régression linéaire
+multiple.
+
+* Livrables
+
+Les livrables attendus sont :
+- Une présentation de type Powerpoint
+- Trois Jupyter Notebooks organisés de la manière suivante :
+    * Le premier Notebook effectue la préparation des données c'est-à-dire qu'il
+      charge l'intégralité du jeu de données (ici le California Housing
+      Dataset), qu'il effectue le train_test_split(), etc
+    * Le deuxième Notebook charge le jeu d'apprentissage, entraine le modèle sur
+      ces données en utilisant une technique de validation croisée et une
+      recherche par grille pour l'optimisation des hyperparamètres. Il évalue et
+      affiche enfin les performances du modèle entrainé sur le jeu
+      d'apprentissage.     
+    * Le troisième Notebook charge les données de test puis évalue sur ces
+      données les performances du modèle entraîné dans le Notebook précédent. Il
+      affiche enfin ces performances.
+      
