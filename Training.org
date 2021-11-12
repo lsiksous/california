@@ -124,9 +124,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from sklearn.datasets import fetch_california_housing
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import MaxAbsScaler
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score, mean_squared_error, mean_squared_log_error
 
@@ -201,32 +199,10 @@ display_all(train.describe(include='all').T)
 #+end_example
 
 
-** Normalizing
-
 #+begin_src jupyter-python
 X = train.drop('AvePrice', axis=1).to_numpy()
-X_test = test.drop('AvePrice', axis=1).to_numpy()
 y = train['AvePrice'].to_numpy()
-y_test = test['AvePrice'].to_numpy()
-
-features = test.columns
 #+end_src
-
-#+RESULTS:
-: # Out[73]:
-
-#+begin_src jupyter-python :eval no
-scaler = MaxAbsScaler()
-X_scaled = scaler.fit_transform(X)
-X_test_scaled = scaler.transform(X_test)
-
-test = pd.DataFrame(data = np.c_[X_test_scaled, y_test],
-                    columns = features)
-test.to_csv('data/test.csv', index=False)
-#+end_src
-
-#+RESULTS:
-: # Out[52]:
 
 
 * Training

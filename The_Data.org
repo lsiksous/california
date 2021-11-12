@@ -125,10 +125,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn.datasets import fetch_california_housing
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score, mean_squared_error, mean_squared_log_error
 #+end_src
 
 #+RESULTS:
@@ -213,24 +210,14 @@ display_all(df_raw.describe(include='all').T)
 :end:
 
 #+begin_src jupyter-python
-df_raw.dtypes
+df_raw.hist(bins=50, figsize=(15,15))
+plt.show()
 #+end_src
 
 #+RESULTS:
 :results:
-# Out[22]:
-#+BEGIN_EXAMPLE
-  MedInc        float64
-  HouseAge      float64
-  AveRooms      float64
-  AveBedrms     float64
-  Population    float64
-  AveOccup      float64
-  Latitude      float64
-  Longitude     float64
-  AvePrice      float64
-  dtype: object
-#+END_EXAMPLE
+# Out[27]:
+[[file:./obipy-resources/Akj8md.png]]
 :end:
 
 ** Desciption des données
