@@ -113,7 +113,6 @@
       lsp-signature-render-documentation nil)
 #+end_src
 
-
 ** Imports
 
 #+begin_src jupyter-python
@@ -127,6 +126,9 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error, mean_squared_log_error
 #+end_src
 
+#+RESULTS:
+: # Out[25]:
+
 
 ** Functions
 
@@ -137,7 +139,7 @@ def display_all(df):
         display(df)
 #+end_src
 
-** Org
+** Org                                                            :noexport:
 
 #+begin_src jupyter-python
 # Org-mode table formatter
@@ -167,11 +169,42 @@ df = pd.read_csv('data/test.csv')
 display_all(df.describe(include='all').T)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+# Out[26]:
+,#+BEGIN_EXAMPLE
+  count        mean        std        min        25%        50%  \
+  MedInc      4128.0    0.655962   0.322218   0.085610   0.436442   0.599390
+  HouseAge    4128.0   13.129791   5.714123   0.456461   8.216306  13.237382
+  AveRooms    4128.0    0.101505   0.052494   0.015893   0.082583   0.097536
+  AveBedrms   4128.0    0.014409   0.008018   0.006570   0.013196   0.013753
+  Population  4128.0  109.989661  86.194053   0.618975  60.427430  89.751369
+  AveOccup    4128.0    0.428787   0.253521   0.182706   0.352142   0.408277
+  Latitude    4128.0   12.329565   0.738927  11.273985  11.755572  11.859512
+  Longitude   4128.0  -47.919482   0.799653 -49.792105 -48.789768 -47.498757
+  AvePrice    4128.0    2.055003   1.144870   0.149990   1.192750   1.786500
+  
+  75%          max
+  MedInc        0.795635     2.568832
+  HouseAge     16.889074    23.735995
+  AveRooms      0.112866     2.489393
+  AveBedrms     0.014399     0.447611
+  Population  133.234360  1247.389284
+  AveOccup      0.475628    12.026200
+  Latitude     13.061747    14.485720
+  Longitude   -47.306308   -45.939120
+  AvePrice      2.630000     5.000010
+,#+END_EXAMPLE
+#+end_example
+
 ** Load model
 
 #+begin_src jupyter-python
 rf = pickle.load(open('data/RF_california.pkl', 'rb'))
 #+end_src
+
+#+RESULTS:
+: # Out[27]:
 
 * Evaluation
 
@@ -182,9 +215,20 @@ y = test['AvePrice'].to_numpy()
 rf.fit(X, y)
 #+end_src
 
+#+RESULTS:
+: # Out[28]:
+: #+BEGIN_EXAMPLE
+:   RandomForestRegressor(max_depth=8, max_features='log2', n_estimators=800,
+:   oob_score=True, warm_start=True)
+: #+END_EXAMPLE
+
 #+begin_src jupyter-python
 rf.score(X, y)
 #+end_src
+
+#+RESULTS:
+: # Out[29]:
+: : 0.8329383120470628
 
 #+begin_src jupyter-python
 y_pred = rf.predict(X)
@@ -193,6 +237,9 @@ print('Mean Squared Error:', mean_squared_error(y, y_pred))
 print('Mean Squared Log Error:', mean_squared_log_error(y, y_pred))
 print('Root Mean Squared Error:', np.sqrt(mean_squared_error(y, y_pred)))
 #+end_src
+
+#+RESULTS:
+: # Out[30]:
 
 Soit une erreur de 46.000 dollars en moyenne.
 
