@@ -113,8 +113,6 @@
       lsp-signature-render-documentation nil)
 #+end_src
 
-#+RESULTS:
-
 ** Imports
 
 #+begin_src jupyter-python
@@ -128,13 +126,6 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 #+end_src
 
-#+RESULTS:
-:results:
-# Out[18]:
-:end:
-
-: # Out[2]:
-
 ** Functions
 
 #+begin_src jupyter-python
@@ -144,12 +135,7 @@ def display_all(df):
         display(df)
 #+end_src
 
-#+RESULTS:
-:results:
-# Out[19]:
-:end:
-
-** Org
+** Org                                                            :noexport:
 
 #+begin_src jupyter-python
 # Org-mode table formatter
@@ -170,22 +156,11 @@ f = ip.display_formatter.formatters['text/org']
 f.for_type_by_name('pandas.core.frame', 'DataFrame', pd_dataframe_to_org)
 #+end_src
 
-#+RESULTS:
-:results:
-# Out[20]:
-:end:
-
 * Data Wrangling
 ** Load Data
 
 #+begin_src jupyter-python
 raw = fetch_california_housing(as_frame=True)
-
-# Store features matrix in X
-X = raw.data.to_numpy()
-
-# Store target vector in 
-y = raw.target
 
 df_raw = pd.DataFrame(data = np.c_[raw['data'], raw['target']],
                   columns = raw['feature_names'] + ['AvePrice'])
@@ -193,32 +168,10 @@ df_raw = pd.DataFrame(data = np.c_[raw['data'], raw['target']],
 display_all(df_raw.describe(include='all').T)
 #+end_src
 
-#+RESULTS:
-:results:
-# Out[21]:
-|            |   count |       mean |         std |         min |        25% |        50% |        75% |         max |
-|------------+---------+------------+-------------+-------------+------------+------------+------------+-------------|
-| MedInc     |   20640 |    3.87067 |    1.89982  |    0.4999   |    2.5634  |    3.5348  |    4.74325 |    15.0001  |
-| HouseAge   |   20640 |   28.6395  |   12.5856   |    1        |   18       |   29       |   37       |    52       |
-| AveRooms   |   20640 |    5.429   |    2.47417  |    0.846154 |    4.44072 |    5.22913 |    6.05238 |   141.909   |
-| AveBedrms  |   20640 |    1.09668 |    0.473911 |    0.333333 |    1.00608 |    1.04878 |    1.09953 |    34.0667  |
-| Population |   20640 | 1425.48    | 1132.46     |    3        |  787       | 1166       | 1725       | 35682       |
-| AveOccup   |   20640 |    3.07066 |   10.386    |    0.692308 |    2.42974 |    2.81812 |    3.28226 |  1243.33    |
-| Latitude   |   20640 |   35.6319  |    2.13595  |   32.54     |   33.93    |   34.26    |   37.71    |    41.95    |
-| Longitude  |   20640 | -119.57    |    2.00353  | -124.35     | -121.8     | -118.49    | -118.01    |  -114.31    |
-| AvePrice   |   20640 |    2.06856 |    1.15396  |    0.14999  |    1.196   |    1.797   |    2.64725 |     5.00001 |
-:end:
-
 #+begin_src jupyter-python
 df_raw.hist(bins=50, figsize=(15,15))
 plt.show()
 #+end_src
-
-#+RESULTS:
-:results:
-# Out[27]:
-[[file:./obipy-resources/Akj8md.png]]
-:end:
 
 ** Desciption des données
 
@@ -228,61 +181,10 @@ plt.show()
 print(raw.DESCR)
 #+end_src
 
-#+RESULTS:
-:results:
-.. _california_housing_dataset:
-
-California Housing dataset
---------------------------
-
-**Data Set Characteristics:**
-
-    :Number of Instances: 20640
-
-    :Number of Attributes: 8 numeric, predictive attributes and the target
-
-    :Attribute Information:
-        - MedInc        median income in block
-        - HouseAge      median house age in block
-        - AveRooms      average number of rooms
-        - AveBedrms     average number of bedrooms
-        - Population    block population
-        - AveOccup      average house occupancy
-        - Latitude      house block latitude
-        - Longitude     house block longitude
-
-    :Missing Attribute Values: None
-
-This dataset was obtained from the StatLib repository.
-http://lib.stat.cmu.edu/datasets/
-
-The target variable is the median house value for California districts.
-
-This dataset was derived from the 1990 U.S. census, using one row per census
-block group. A block group is the smallest geographical unit for which the U.S.
-Census Bureau publishes sample data (a block group typically has a population
-of 600 to 3,000 people).
-
-It can be downloaded/loaded using the
-:func:`sklearn.datasets.fetch_california_housing` function.
-
-.. topic:: References
-
-    - Pace, R. Kelley and Ronald Barry, Sparse Spatial Autoregressions,
-      Statistics and Probability Letters, 33 (1997) 291-297
-
-:end:
-
 #+begin_src jupyter-python
 df_raw.hist(bins=50, figsize=(15,15))
 plt.show()
 #+end_src
-
-#+RESULTS:
-:results:
-# Out[24]:
-[[file:./obipy-resources/kp7OPP.png]]
-:end:
 
 ** Split the Data
 
@@ -290,22 +192,12 @@ plt.show()
 train, test = train_test_split(df_raw, test_size=0.2, random_state=42, shuffle=True)
 #+end_src
 
-#+RESULTS:
-:results:
-# Out[25]:
-:end:
-
 
 #+begin_src jupyter-python
 # save the train and test file
 train.to_csv('data/train.csv', index=False)
 test.to_csv('data/test.csv', index=False)
 #+end_src
-
-#+RESULTS:
-:results:
-# Out[26]:
-:end:
 
 * Bibliography
 ** References

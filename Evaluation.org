@@ -113,8 +113,6 @@
       lsp-signature-render-documentation nil)
 #+end_src
 
-#+RESULTS:
-
 
 ** Imports
 
@@ -129,9 +127,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error, mean_squared_log_error
 #+end_src
 
-#+RESULTS:
-: # Out[93]:
-
 
 ** Functions
 
@@ -141,9 +136,6 @@ def display_all(df):
     with pd.option_context("display.max_rows", 100, "display.max_columns", 100): 
         display(df)
 #+end_src
-
-#+RESULTS:
-: # Out[81]:
 
 ** Org
 
@@ -166,9 +158,6 @@ f = ip.display_formatter.formatters['text/org']
 f.for_type_by_name('pandas.core.frame', 'DataFrame', pd_dataframe_to_org)
 #+end_src
 
-#+RESULTS:
-: # Out[82]:
-
 * Evaluation
 ** Load Data
 
@@ -178,30 +167,11 @@ df = pd.read_csv('data/test.csv')
 display_all(df.describe(include='all').T)
 #+end_src
 
-#+RESULTS:
-#+begin_example
-# Out[83]:
-|            |   count |       mean |         std |          min |         25% |         50% |         75% |         max |
-|------------+---------+------------+-------------+--------------+-------------+-------------+-------------+-------------|
-| MedInc     |    4128 |   0.655962 |  0.322218   |   0.08561    |   0.436442  |   0.59939   |   0.795635  |    2.56883  |
-| HouseAge   |    4128 |  13.1298   |  5.71412    |   0.456461   |   8.21631   |  13.2374    |  16.8891    |   23.736    |
-| AveRooms   |    4128 |   0.101505 |  0.0524936  |   0.0158934  |   0.0825826 |   0.0975365 |   0.112866  |    2.48939  |
-| AveBedrms  |    4128 |   0.014409 |  0.00801753 |   0.00656963 |   0.0131963 |   0.0137531 |   0.0143994 |    0.447611 |
-| Population |    4128 | 109.99     | 86.1941     |   0.618975   |  60.4274    |  89.7514    | 133.234     | 1247.39     |
-| AveOccup   |    4128 |   0.428787 |  0.253521   |   0.182706   |   0.352142  |   0.408277  |   0.475628  |   12.0262   |
-| Latitude   |    4128 |  12.3296   |  0.738927   |  11.274      |  11.7556    |  11.8595    |  13.0617    |   14.4857   |
-| Longitude  |    4128 | -47.9195   |  0.799653   | -49.7921     | -48.7898    | -47.4988    | -47.3063    |  -45.9391   |
-| AvePrice   |    4128 |   2.055    |  1.14487    |   0.14999    |   1.19275   |   1.7865    |   2.63      |    5.00001  |
-#+end_example
-
 ** Load model
 
 #+begin_src jupyter-python
 rf = pickle.load(open('data/RF_california.pkl', 'rb'))
 #+end_src
-
-#+RESULTS:
-: # Out[84]:
 
 * Evaluation
 
@@ -212,20 +182,9 @@ y = test['AvePrice'].to_numpy()
 rf.fit(X, y)
 #+end_src
 
-#+RESULTS:
-: # Out[85]:
-: #+BEGIN_EXAMPLE
-:   RandomForestRegressor(max_depth=8, max_features='log2', n_estimators=500,
-:   random_state=42)
-: #+END_EXAMPLE
-
 #+begin_src jupyter-python
 rf.score(X, y)
 #+end_src
-
-#+RESULTS:
-: # Out[88]:
-: : 0.8330918354721185
 
 #+begin_src jupyter-python
 y_pred = rf.predict(X)
@@ -234,9 +193,6 @@ print('Mean Squared Error:', mean_squared_error(y, y_pred))
 print('Mean Squared Log Error:', mean_squared_log_error(y, y_pred))
 print('Root Mean Squared Error:', np.sqrt(mean_squared_error(y, y_pred)))
 #+end_src
-
-#+RESULTS:
-: # Out[94]:
 
 Soit une erreur de 46.000 dollars en moyenne.
 
