@@ -1,0 +1,285 @@
+#+TITLE: Méthodes d'ensemble
+#+PROPERTY: header-args:jupyter-python :session *Py* :results raw drawer :cache no :exports results :eval yes
+
+#+SUBTITLE:Segmenter des clients d'un site e-commerce
+#+AUTHOR: Laurent Siksous
+#+EMAIL: siksous@gmail.com
+# #+DATE: 
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  fr
+
+# specifying the beamer startup gives access to a number of
+# keybindings which make configuring individual slides and components
+# of slides easier.  See, for instance, C-c C-b on a frame headline.
+#+STARTUP: beamer
+
+#+STARTUP: oddeven
+
+# we tell the exporter to use a specific LaTeX document class, as
+# defined in org-latex-classes.  By default, this does not include a
+# beamer entry so this needs to be defined in your configuration (see
+# the tutorial).
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger] 
+
+#+LATEX_HEADER: \usepackage{listings}
+
+#+LATEX_HEADER: \definecolor{UBCblue}{rgb}{0.04706, 0.13725, 0.26667} % UBC Blue (primary)
+#+LATEX_HEADER: \usecolortheme[named=UBCblue]{structure}
+
+# Beamer supports alternate themes.  Choose your favourite here
+#+BEAMER_COLOR_THEME: dolphin
+#+BEAMER_FONT_THEME:  default
+#+BEAMER_INNER_THEME: [shadow]rounded
+#+BEAMER_OUTER_THEME: infolines
+
+# the beamer exporter expects to be told which level of headlines
+# defines the frames.  We use the first level headlines for sections
+# and the second (hence H:2) for frames.
+#+OPTIONS:   H:2 toc:t
+
+# the following allow us to selectively choose headlines to export or not
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+
+# for a column view of options and configurations for the individual
+# frames
+#+COLUMNS: %20ITEM %13BEAMER_env(Env) %6BEAMER_envargs(Args) %4BEAMER_col(Col) %7BEAMER_extra(Extra)
+
+# #+BEAMER_HEADER: \usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight,opacity=.01]{img/bg2.jpeg}}
+# #+BEAMER_HEADER: \logo{\includegraphics[height=.5cm,keepaspectratio]{img/bti_logo2.png}\vspace{240pt}}
+# #+BEAMER_HEADER: \setbeamertemplate{background canvas}{\begin{tikzpicture}\node[opacity=.1]{\includegraphics [width=\paperwidth,height=\paperheight]{img/background.jpg}};\end{tikzpicture}}
+# #+BEAMER_HEADER: \logo{\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{img/background.jpg}}
+#+BEAMER_HEADER: \titlegraphic{\includegraphics[width=50]{img/logo.png}}
+# #+BEAMER_HEADER: \definecolor{ft}{RGB}{255, 241, 229}
+#+BEAMER_HEADER: \setbeamercolor{background canvas}{bg=ft}
+
+* Preamble
+** Emacs Setup                                                    :noexport:
+
+#+begin_src emacs-lisp
+(setq org-src-fontify-natively t)
+
+(setq lsp-semantic-tokens-enable t)
+(setq lsp-enable-symbol-highlighting t)
+
+(setq lsp-enable-file-watchers nil
+      read-process-output-max (* 1024 1024)
+      gc-cons-threshold 100000000
+      lsp-idle-delay 0.5
+      ;;
+      lsp-eldoc-hook nil
+      lsp-eldoc-enable-hover nil
+
+      ;;pas de fil d'ariane
+      lsp-headerline-breadcrumb-enable nil
+      ;; pas de imenu voir menu-list
+      lsp-enable-imenu nil
+      ;; lentille
+      lsp-lens-enable t
+ 
+      lsp-semantic-highlighting t
+      lsp-modeline-code-actions-enable t
+      )
+  
+(setq lsp-completion-provider :company
+      lsp-completion-show-detail t
+      lsp-completion-show-kind t)
+
+(setq lsp-ui-doc-enable t
+      lsp-ui-doc-show-with-mouse nil
+      lsp-ui-doc-show-with-cursor t
+      lsp-ui-doc-use-childframe t
+      
+      lsp-ui-sideline-diagnostic-max-line-length 80
+
+      ;; lsp-ui-imenu
+      lsp-ui-imenu-enable nil
+      ;; lsp-ui-peek
+      lsp-ui-peek-enable t
+      ;; lsp-ui-sideline
+      lsp-ui-sideline-enable t
+      lsp-ui-sideline-ignore-duplicate t
+      lsp-ui-sideline-show-symbol t
+      lsp-ui-sideline-show-hover t
+      lsp-ui-sideline-show-diagnostics t
+      lsp-ui-sideline-show-code-actions t
+      )
+
+(setq lsp-diagnostics-provider :none
+      lsp-modeline-diagnostics-enable nil
+      lsp-signature-auto-activate nil ;; you could manually request them via `lsp-signature-activate`
+      lsp-signature-render-documentation nil)
+#+end_src
+
+#+RESULTS:
+
+** Imports
+
+#+begin_src jupyter-python
+%matplotlib inline
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.datasets import fetch_california_housing
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import MaxAbsScaler
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import r2_score, mean_squared_error, mean_squared_log_error
+
+import pickle
+#+end_src
+
+#+RESULTS:
+: # Out[69]:
+
+: # Out[2]:
+
+** Functions
+
+#+begin_src jupyter-python
+# Display all
+def display_all(df):
+    with pd.option_context("display.max_rows", 100, "display.max_columns", 100): 
+        display(df)
+#+end_src
+
+#+RESULTS:
+: # Out[70]:
+
+** Org
+
+#+begin_src jupyter-python
+# Org-mode table formatter
+import IPython
+import tabulate
+
+class OrgFormatter(IPython.core.formatters.BaseFormatter):
+    format_type = IPython.core.formatters.Unicode('text/org')
+    print_method = IPython.core.formatters.ObjectName('_repr_org_')
+
+def pd_dataframe_to_org(df):
+    return tabulate.tabulate(df, headers='keys', tablefmt='orgtbl', showindex='always')
+
+ip = get_ipython()
+ip.display_formatter.formatters['text/org'] = OrgFormatter()
+
+f = ip.display_formatter.formatters['text/org']
+f.for_type_by_name('pandas.core.frame', 'DataFrame', pd_dataframe_to_org)
+#+end_src
+
+#+RESULTS:
+: # Out[71]:
+
+* Model Selection
+** Load Data
+
+#+begin_src jupyter-python
+train = pd.read_csv('data/train.csv')
+test = pd.read_csv('data/test.csv')
+
+display_all(train.describe(include='all').T)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+# Out[72]:
+|            |   count |       mean |         std |         min |        25% |        50% |        75% |         max |
+|------------+---------+------------+-------------+-------------+------------+------------+------------+-------------|
+| MedInc     |   16512 |    3.88075 |    1.90429  |    0.4999   |    2.5667  |    3.5458  |    4.77318 |    15.0001  |
+| HouseAge   |   16512 |   28.6083  |   12.6025   |    1        |   18       |   29       |   37       |    52       |
+| AveRooms   |   16512 |    5.43524 |    2.38737  |    0.888889 |    4.45205 |    5.23587 |    6.06104 |   141.909   |
+| AveBedrms  |   16512 |    1.09668 |    0.433215 |    0.333333 |    1.00651 |    1.04929 |    1.10035 |    25.6364  |
+| Population |   16512 | 1426.45    | 1137.06     |    3        |  789       | 1167       | 1726       | 35682       |
+| AveOccup   |   16512 |    3.09696 |   11.5787   |    0.692308 |    2.4288  |    2.81724 |    3.28    |  1243.33    |
+| Latitude   |   16512 |   35.6431  |    2.13667  |   32.55     |   33.93    |   34.26    |   37.72    |    41.95    |
+| Longitude  |   16512 | -119.582   |    2.00565  | -124.35     | -121.81    | -118.51    | -118.01    |  -114.31    |
+| AvePrice   |   16512 |    2.07195 |    1.15623  |    0.14999  |    1.198   |    1.7985  |    2.65125 |     5.00001 |
+#+end_example
+
+
+** Normalizing
+
+#+begin_src jupyter-python
+X = train.drop('AvePrice', axis=1).to_numpy()
+X_test = test.drop('AvePrice', axis=1).to_numpy()
+y = train['AvePrice'].to_numpy()
+y_test = test['AvePrice'].to_numpy()
+
+features = test.columns
+#+end_src
+
+#+RESULTS:
+: # Out[73]:
+
+#+begin_src jupyter-python :eval no
+scaler = MaxAbsScaler()
+X_scaled = scaler.fit_transform(X)
+X_test_scaled = scaler.transform(X_test)
+
+test = pd.DataFrame(data = np.c_[X_test_scaled, y_test],
+                    columns = features)
+test.to_csv('data/test.csv', index=False)
+#+end_src
+
+#+RESULTS:
+: # Out[52]:
+
+
+* Training
+
+#+begin_src jupyter-python
+rf = RandomForestRegressor(random_state=42)
+
+param_grid = { 
+    'n_estimators': [200, 500],
+    'max_features': ['auto', 'sqrt', 'log2'],
+    'max_depth' : [4,5,6,7,8]
+}
+
+gm = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5, oob_score=True)
+gm.fit(X, y)
+gm.best_params_
+#+end_src
+
+#+RESULTS:
+: # Out[74]:
+: : {'max_depth': 8, 'max_features': 'log2', 'n_estimators': 500}
+
+
+#+begin_src jupyter-python
+gm.score(X, y)
+#gm.cv_results_
+#+end_src
+
+#+RESULTS:
+: # Out[78]:
+: : 0.7980230776655566
+
+** Save model
+
+#+begin_src jupyter-python
+with open('data/RF_california.pkl', 'wb') as file:
+    pickle.dump(gm.best_estimator_, file)
+#+end_src
+
+#+RESULTS:
+: # Out[79]:
+
+* Bibliography
+** References
+:PROPERTIES:
+:BEAMER_opt: shrink=10
+:END:
+
+bibliographystyle:unsrt
+bibliography:california.bib
+
+* Local Variables                                                  :noexport:
+# Local Variables:
+# eval: (setenv "PATH" "/Library/TeX/texbin/:$PATH" t)
+# org-ref-default-bibliography: ("./olist.bib")
+# End:

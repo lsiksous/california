@@ -1,0 +1,96 @@
+
+@misc{breimanBaggingPredictors1996,
+  title = {Bagging Predictors},
+  author = {BREIMAN, LEO},
+  year = {1996},
+  abstract = {Bagging predictors is a method for generating multiple versions of a predictor and using these to get an aggregated predictor. The aggregation averages over the versions when predicting a numerical outcome and does a plurality vote when predicting a class. The multiple versions are formed by making bootstrap replicates of the learning set and using these as new learning sets. Tests on real and simulated data sets using classification and regression trees and subset selection in linear regression show that bagging can give substantial gains in accuracy. The vital element is the instability of the prediction method. If perturbing the learning set can cause significant changes in the predictor constructed, then bagging can improve accuracy.},
+  file = {/Users/lss/Zotero/storage/9LNQG8TJ/BREIMAN - 1996 - Bagging predictors.pdf;/Users/lss/Zotero/storage/AP9BMI82/summary.html}
+}
+
+@article{efronBootstrapMethodsAnother1979,
+  title = {Bootstrap {{Methods}}: Another {{Look}} at the {{Jackknife}}},
+  shorttitle = {Bootstrap {{Methods}}},
+  author = {Efron, B.},
+  year = {1979},
+  month = jan,
+  journal = {The Annals of Statistics},
+  volume = {7},
+  number = {1},
+  pages = {1--26},
+  publisher = {{Institute of Mathematical Statistics}},
+  issn = {0090-5364, 2168-8966},
+  doi = {10.1214/aos/1176344552},
+  abstract = {We discuss the following problem: given a random sample \$\textbackslash mathbf\{X\} = (X\_1, X\_2, \textbackslash cdots, X\_n)\$ from an unknown probability distribution \$F\$, estimate the sampling distribution of some prespecified random variable \$R(\textbackslash mathbf\{X\}, F)\$, on the basis of the observed data \$\textbackslash mathbf\{x\}\$. (Standard jackknife theory gives an approximate mean and variance in the case \$R(\textbackslash mathbf\{X\}, F) = \textbackslash theta(\textbackslash hat\{F\}) - \textbackslash theta(F), \textbackslash theta\$ some parameter of interest.) A general method, called the "bootstrap," is introduced, and shown to work satisfactorily on a variety of estimation problems. The jackknife is shown to be a linear approximation method for the bootstrap. The exposition proceeds by a series of examples: variance of the sample median, error rates in a linear discriminant analysis, ratio estimation, estimating regression parameters, etc.},
+  keywords = {62G05,62G15,62H30,62J05,bootstrap,discriminant analysis,error rate estimation,jackknife,Nonlinear regression,nonparametric variance estimation,Resampling,subsample values},
+  file = {/Users/lss/Zotero/storage/BE3EMSIU/Efron - 1979 - Bootstrap Methods Another Look at the Jackknife.pdf;/Users/lss/Zotero/storage/6FG3VKPE/1176344552.html}
+}
+
+@misc{freundExperimentsNewBoosting1996,
+  title = {Experiments with a {{New Boosting Algorithm}}},
+  author = {Freund, Yoav and Schapire, Robert E.},
+  year = {1996},
+  abstract = {In an earlier paper, we introduced a new ``boosting'' algorithm called AdaBoost which, theoretically, can be used to significantly reduce the error of any learning algorithm that consistently generates classifiers whose performance is a little better than random guessing. We also introduced the related notion of a ``pseudo-loss '' which is a method for forcing a learning algorithm of multi-label conceptsto concentrate on the labels that are hardest to discriminate. In this paper, we describe experiments we carried out to assess how well AdaBoost with and without pseudo-loss, performs on real learning problems. We performed two sets of experiments. The first set compared boosting to Breiman's ``bagging '' method when used to aggregate various classifiers (including decision trees and single attribute-value tests). We compared the performance of the two methods on a collection of machine-learning benchmarks. In the second set of experiments, we studied in more detail the performance of boosting using a nearest-neighbor classifier on an OCR problem.},
+  file = {/Users/lss/Zotero/storage/JB4HD2CQ/Freund and Schapire - 1996 - Experiments with a New Boosting Algorithm.pdf;/Users/lss/Zotero/storage/TTEG5B7M/summary.html}
+}
+
+@misc{freundShortIntroductionBoosting1999a,
+  title = {A {{Short Introduction}} to {{Boosting}}},
+  author = {Freund, Yoav and Schapire, Robert E.},
+  year = {1999},
+  file = {/Users/lss/Zotero/storage/CA8NIZPD/Freund and Schapire - 1999 - A Short Introduction to Boosting.pdf;/Users/lss/Zotero/storage/J38RN7CZ/summary.html}
+}
+
+@article{sewellEnsembleLearning,
+  title = {Ensemble {{Learning}}},
+  author = {Sewell, Martin},
+  pages = {16},
+  langid = {english},
+  file = {/Users/lss/Zotero/storage/XPCYRDV2/Sewell - Ensemble Learning.pdf}
+}
+
+@misc{statisticsOutOfBagEstimation,
+  title = {Out-{{Of}}-{{Bag Estimation}}},
+  author = {Statistics, Leo Breiman and Breiman, Leo},
+  abstract = {In bagging, predictors are constructed using bootstrap samples from the training set and then aggregated to form a bagged predictor. Each bootstrap sample leaves out about 37\% of the examples. These left-out examples can be used to form accurate estimates of important quantities. For instance, they can be used to give much improved estimates of node probabilities and node error rates in decision trees. Using estimated outputs instead of the observed outputs improves accuracy in regression trees. They can also be used to give nearly optimal estimates of generalization errors for bagged predictors. * Partially supported by NSF Grant 1-444063-21445 Introduction: We assume that there is a training set T= \{(y n ,x n ), n=1, ... ,N\} and a method for constructing a predictor Q(x,T) using the given training set. The output variable y can either be a class label (classification) or numerical (regression). In bagging (Breiman[1996a]) a sequence of training sets T B,1 , ... , T B,K are generated ...},
+  file = {/Users/lss/Zotero/storage/QJQNGILK/Statistics and Breiman - Out-Of-Bag Estimation.pdf;/Users/lss/Zotero/storage/392LJGJW/summary.html}
+}
+
+@article{tinkamhoRandomSubspaceMethod1998,
+  title = {The Random Subspace Method for Constructing Decision Forests},
+  author = {{Tin Kam Ho}},
+  year = {Aug./1998},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume = {20},
+  number = {8},
+  pages = {832--844},
+  issn = {01628828},
+  doi = {10.1109/34.709601},
+  abstract = {Much of previous attention on decision trees focuses on the splitting criteria and optimization of tree sizes. The dilemma between overfitting and achieving maximum accuracy is seldom resolved. A method to construct a decision tree based classifier is proposed that maintains highest accuracy on training data and improves on generalization accuracy as it grows in complexity. The classifier consists of multiple trees constructed systematically by pseudorandomly selecting subsets of components of the feature vector, that is, trees constructed in randomly chosen subspaces. The subspace method is compared to single-tree classifiers and other forest construction methods by experiments on publicly available datasets, where the method's superiority is demonstrated. We also discuss independence between trees in a forest and relate that to the combined classification accuracy.},
+  langid = {english},
+  file = {/Users/lss/Zotero/storage/TNGY9BE2/Tin Kam Ho - 1998 - The random subspace method for constructing decisi.pdf}
+}
+
+@article{valiantTheoryLearnable1984,
+  title = {A Theory of the Learnable},
+  author = {Valiant, L. G.},
+  year = {1984},
+  month = nov,
+  journal = {Communications of the ACM},
+  volume = {27},
+  number = {11},
+  pages = {1134--1142},
+  issn = {0001-0782},
+  doi = {10.1145/1968.1972},
+  keywords = {inductive inference,probabilistic models of learning,propositional expressions},
+  file = {/Users/lss/Zotero/storage/2LCHV3WX/ValiantLearnable.pdf}
+}
+
+@misc{vapnikNatureStatisticalLearning1999,
+  title = {The {{Nature}} of {{Statistical Learning Theory}}},
+  author = {Vapnik, Vladimir N.},
+  year = {1999},
+  abstract = {Statistical learning theory was introduced in the late 1960's. Until the 1990's it was a purely theoretical analysis of the problem of function estimation from a given collection of data. In the middle of the 1990's new types of learning algorithms (called support vector machines) based on the developed theory were proposed. This made statistical learning theory not only a tool for the theoretical analysis but also a tool for creating practical algorithms for estimating multidimensional functions. This article presents a very general overview of statistical learning theory including both theoretical and algorithmic aspects of the theory. The goal of this overview is to demonstrate how the abstract learning theory established conditions for generalization which are more general than those discussed in classical statistical paradigms and how the understanding of these conditions inspired new algorithmic approaches to function estimation problems. A more},
+  file = {/Users/lss/Zotero/storage/RIGTSP88/Vapnik - 1999 - The Nature of Statistical Learning Theory.pdf;/Users/lss/Zotero/storage/JZ5KLQCK/summary.html}
+}
+
+
