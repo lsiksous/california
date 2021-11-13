@@ -168,11 +168,6 @@ df_raw = pd.DataFrame(data = np.c_[raw['data'], raw['target']],
 display_all(df_raw.describe(include='all').T)
 #+end_src
 
-#+begin_src jupyter-python
-df_raw.hist(bins=50, figsize=(15,15))
-plt.show()
-#+end_src
-
 ** Desciption des données
 
 - Affichons la description des données :
@@ -185,6 +180,18 @@ print(raw.DESCR)
 df_raw.hist(bins=50, figsize=(15,15))
 plt.show()
 #+end_src
+
+#+begin_src jupyter-python
+plt.figure(figsize=(8, 7))
+sns.scatterplot(data=df_raw, x="Longitude", y="Latitude",
+                size="AvePrice", hue="AvePrice",
+                palette="viridis", alpha=0.5)
+plt.legend(title="AvePrice", bbox_to_anchor=(1.05, 0.95),
+           loc="upper left")
+plt.title("Prix moyen des biens par rapport à leur géolocalisation (100k_USD)")
+plt.show()
+#+end_src
+
 
 ** Split the Data
 
