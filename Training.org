@@ -1,5 +1,5 @@
 #+TITLE: Méthodes d'ensemble
-#+PROPERTY: header-args:jupyter-python :session *Py* :results raw drawer :cache no :exports results :eval yes
+#+PROPERTY: header-args:jupyter-python :session *Py* :results raw drawer :cache yes :async yes :exports results :eval yes
 
 #+SUBTITLE:Segmenter des clients d'un site e-commerce
 #+AUTHOR: Laurent Siksous

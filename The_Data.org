@@ -113,6 +113,8 @@
       lsp-signature-render-documentation nil)
 #+end_src
 
+#+RESULTS:
+
 ** Imports
 
 #+begin_src jupyter-python
@@ -125,6 +127,11 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 #+end_src
+
+#+RESULTS:
+:results:
+# Out[9]:
+:end:
 
 ** Functions
 
@@ -156,6 +163,11 @@ f = ip.display_formatter.formatters['text/org']
 f.for_type_by_name('pandas.core.frame', 'DataFrame', pd_dataframe_to_org)
 #+end_src
 
+#+RESULTS:
+:results:
+# Out[10]:
+:end:
+
 * Data Wrangling
 ** Load Data
 
@@ -167,6 +179,22 @@ df_raw = pd.DataFrame(data = np.c_[raw['data'], raw['target']],
 
 display_all(df_raw.describe(include='all').T)
 #+end_src
+
+#+RESULTS:
+:results:
+# Out[11]:
+|            |   count |       mean |         std |         min |        25% |        50% |        75% |         max |
+|------------+---------+------------+-------------+-------------+------------+------------+------------+-------------|
+| MedInc     |   20640 |    3.87067 |    1.89982  |    0.4999   |    2.5634  |    3.5348  |    4.74325 |    15.0001  |
+| HouseAge   |   20640 |   28.6395  |   12.5856   |    1        |   18       |   29       |   37       |    52       |
+| AveRooms   |   20640 |    5.429   |    2.47417  |    0.846154 |    4.44072 |    5.22913 |    6.05238 |   141.909   |
+| AveBedrms  |   20640 |    1.09668 |    0.473911 |    0.333333 |    1.00608 |    1.04878 |    1.09953 |    34.0667  |
+| Population |   20640 | 1425.48    | 1132.46     |    3        |  787       | 1166       | 1725       | 35682       |
+| AveOccup   |   20640 |    3.07066 |   10.386    |    0.692308 |    2.42974 |    2.81812 |    3.28226 |  1243.33    |
+| Latitude   |   20640 |   35.6319  |    2.13595  |   32.54     |   33.93    |   34.26    |   37.71    |    41.95    |
+| Longitude  |   20640 | -119.57    |    2.00353  | -124.35     | -121.8     | -118.49    | -118.01    |  -114.31    |
+| AvePrice   |   20640 |    2.06856 |    1.15396  |    0.14999  |    1.196   |    1.797   |    2.64725 |     5.00001 |
+:end:
 
 ** Desciption des données
 
