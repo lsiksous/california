@@ -1,7 +1,7 @@
-#+TITLE: Méthodes d'ensemble
+#+TITLE: Analyse de sentiment
 #+PROPERTY: header-args:jupyter-python :session *Py* :results raw drawer :cache yes :async yes :exports results :eval yes
 
-#+SUBTITLE:Segmenter des clients d'un site e-commerce
+#+SUBTITLE: introduction au traitement automatique du langage naturel
 #+AUTHOR: Laurent Siksous
 #+EMAIL: siksous@gmail.com
 # #+DATE: 
@@ -113,23 +113,30 @@
       lsp-signature-render-documentation nil)
 #+end_src
 
+#+RESULTS:
+
 ** Imports
 
 #+begin_src jupyter-python
 %matplotlib inline
+%load_ext autoreload
+%autoreload 2
 
-import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
+import pickle
+
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import r2_score, mean_squared_error, mean_squared_log_error
-
-import pickle
+from keras.datasets import imdb
 #+end_src
 
-: # Out[2]:
+#+RESULTS[8e472e96bf67cbb9738fc73b8adc00cdb26cc83c]:
+:results:
+4 - 05b0fd66-373c-45ab-aa93-6ccb10e9ca10
+:end:
 
 ** Functions
 
@@ -165,10 +172,15 @@ f.for_type_by_name('pandas.core.frame', 'DataFrame', pd_dataframe_to_org)
 ** Load Data
 
 #+begin_src jupyter-python
-df = pd.read_csv('data/train.csv')
+(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=10000)
 
 display_all(df.describe(include='all').T)
 #+end_src
+
+#+RESULTS[20949f2d33b204a38e8e10996556027d946e5f54]:
+:results:
+3 - 33a38e79-7a54-4836-97d5-1230d50c2a85
+:end:
 
 
 #+begin_src jupyter-python
